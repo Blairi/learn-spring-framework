@@ -1,27 +1,22 @@
-# Archivos de configuración de IDE
+# IDE configuration 
 .idea/
 
-# Archivos de registro
+# Application log
 *.log
 
-# Archivos de compilación
+# Files compiled 
 /bin/
 /build/
 /out/
 
-# Archivos de propiedades de configuración
-application.properties
-application.yml
-*.properties
-*.yml
 
-# Archivos de respaldo
+# Files backup 
 *~
 
-# Archivos de caché
+# Cache files 
 /.gradle/
 /.mvn/
 
-# Archivos de prueba
+# Test files 
 /test/
 
