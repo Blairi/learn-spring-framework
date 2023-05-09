@@ -38,24 +38,10 @@ const LoginComponent = () => {
     }
   }
 
-  const SuccessMessageComponent = () => {
-    if(showSuccessMessage)
-      return <div className='successMessage'>Authenticate Successfully</div>;
-    else
-      return null
-  }
-
-  const ErrorMessageComponent = () => {
-    if(showErrorMessage)
-      return <div className='errorMessage'>Authenticate Failed. Please check your credentials.</div>;
-    else
-      return null
-  }
-
   return(
     <div className="Login">
-      <SuccessMessageComponent />
-      <ErrorMessageComponent />
+      { showSuccessMessage &&  <div className='successMessage'>Authenticate Successfully</div> }
+      { showErrorMessage && <div className='errorMessage'>Authenticate Failed. Please check your credentials.</div> }
       <div className="LoginForm">
         <div>
           <label htmlFor="username">Username</label>
