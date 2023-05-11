@@ -10,6 +10,7 @@ export const TodoApp = () => {
           <Route path='/' element={ <LoginComponent /> }></Route>
           <Route path='/login' element={ <LoginComponent /> }></Route>
           <Route path='/welcome' element={ <WelcomeComponent /> }></Route>
+          <Route path='/*' element={ <ErrorComponent /> }></Route>
 
         </Routes>
       </BrowserRouter>
@@ -49,6 +50,7 @@ const LoginComponent = () => {
 
   return(
     <div className="Login">
+      <h1>Time to login</h1>
       { showSuccessMessage &&  <div className='successMessage'>Authenticate Successfully</div> }
       { showErrorMessage && <div className='errorMessage'>Authenticate Failed. Please check your credentials.</div> }
       <div className="LoginForm">
@@ -85,6 +87,17 @@ const WelcomeComponent = () => {
   return(
     <div className="Welcome">
       Welcome component
+    </div>
+  )
+}
+
+const ErrorComponent = () => {
+  return(
+    <div className="ErrorComponent">
+      <h1>We are working really hard</h1>
+      <div>
+        Apologies for the 404. 
+      </div>
     </div>
   )
 }
