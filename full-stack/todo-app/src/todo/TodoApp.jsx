@@ -10,6 +10,7 @@ export const TodoApp = () => {
           <Route path='/' element={ <LoginComponent /> }></Route>
           <Route path='/login' element={ <LoginComponent /> }></Route>
           <Route path='/welcome/:username' element={ <WelcomeComponent /> }></Route>
+          <Route path='/todos' element={ <ListTodosComponent /> }></Route>
           <Route path='/*' element={ <ErrorComponent /> }></Route>
 
         </Routes>
@@ -100,6 +101,41 @@ const ErrorComponent = () => {
       <h1>We are working really hard</h1>
       <div>
         Apologies for the 404. 
+      </div>
+    </div>
+  )
+}
+
+const ListTodosComponent = () => {
+
+  const todos = [
+    {id:1, description: 'Learn AWS'},
+    {id:2, description: 'Learn DevOps'},
+    {id:3, description: 'Learn Full Stack'},
+  ]
+
+  return(
+    <div className="ListTodosComponent">
+      <h1>Things You Want To Do!</h1>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Description</td>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              todos.map((todo, i) => (
+                <tr key={i}>
+                  <td>{todo.id}</td>
+                  <td>{todo.description}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
       </div>
     </div>
   )
