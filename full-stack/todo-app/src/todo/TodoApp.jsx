@@ -5,16 +5,19 @@ import { BrowserRouter, Link, Route, Routes, useNavigate, useParams } from 'reac
 export const TodoApp = () => {
   return (
     <div className="TodoApp">
+      <HeaderComponent />
       <BrowserRouter>
         <Routes>
           <Route path='/' element={ <LoginComponent /> }></Route>
           <Route path='/login' element={ <LoginComponent /> }></Route>
           <Route path='/welcome/:username' element={ <WelcomeComponent /> }></Route>
           <Route path='/todos' element={ <ListTodosComponent /> }></Route>
+          <Route path='/logout' element={ <LogoutComponent /> }></Route>
           <Route path='/*' element={ <ErrorComponent /> }></Route>
 
         </Routes>
       </BrowserRouter>
+      <FooterComponent />
     </div>
   )
 }
@@ -146,6 +149,37 @@ const ListTodosComponent = () => {
             }
           </tbody>
         </table>
+      </div>
+    </div>
+  )
+}
+
+const HeaderComponent = () => {
+  return(
+    <div className="HeaderComponent">
+      <div>
+        Header <hr />
+      </div>
+    </div>
+  )
+}
+
+const FooterComponent = () => {
+  return(
+    <div className="FooterComponent">
+      <div>
+        <hr /> Footer
+      </div>
+    </div>
+  )
+}
+
+const LogoutComponent = () => {
+  return(
+    <div className="LogoutComponent">
+      <h1>You are logged out!</h1>
+      <div>
+        Thank you for using the app. Come backk soon!
       </div>
     </div>
   )
