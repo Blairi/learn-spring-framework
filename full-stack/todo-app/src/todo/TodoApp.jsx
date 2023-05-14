@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './TodoApp.css';
-import { BrowserRouter, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 export const TodoApp = () => {
   return (
@@ -90,7 +90,10 @@ const WelcomeComponent = () => {
 
   return(
     <div className="Welcome">
-      Welcome { username }
+      <h1>Welcome { username }</h1>
+      <div>
+        Manage your todos - <Link to='/todos'>Go here</Link>
+      </div>
     </div>
   )
 }
@@ -108,10 +111,13 @@ const ErrorComponent = () => {
 
 const ListTodosComponent = () => {
 
+  const today = new Date();
+  const targetDate = new Date(today.getFullYear() + 12, today.getMonth(), today.getDate());
+
   const todos = [
-    {id:1, description: 'Learn AWS'},
-    {id:2, description: 'Learn DevOps'},
-    {id:3, description: 'Learn Full Stack'},
+    {id:1, description: 'Learn AWS', done: false, targeDate: targetDate},
+    {id:2, description: 'Learn DevOps', done: false, targeDate: targetDate},
+    {id:3, description: 'Learn Full Stack', done: false, targeDate: targetDate},
   ]
 
   return(
@@ -123,6 +129,8 @@ const ListTodosComponent = () => {
             <tr>
               <td>ID</td>
               <td>Description</td>
+              <td>Is Done?</td>
+              <td>Target Date</td>
             </tr>
           </thead>
           <tbody>
@@ -131,6 +139,8 @@ const ListTodosComponent = () => {
                 <tr key={i}>
                   <td>{todo.id}</td>
                   <td>{todo.description}</td>
+                  <td>{todo.done.toString()}</td>
+                  <td>{todo.targeDate.toDateString()}</td>
                 </tr>
               ))
             }
