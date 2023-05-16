@@ -3,11 +3,7 @@ import { useAuth } from './security/AuthContext';
 
 export const HeaderComponent = () => {
 
-  const { isAuthenticated, setAuthenticated } = useAuth();
-
-  const logout = () => {
-    setAuthenticated(false);
-  }
+  const { isAuthenticated, logout } = useAuth();
 
   return(
     <header className="border-bottom border-light border-5 mb-5 p-2">
