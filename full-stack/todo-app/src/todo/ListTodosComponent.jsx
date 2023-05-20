@@ -2,6 +2,7 @@ import { useState } from "react";
 import { deleteTodoApi, retrieveAllTodosForUsernameApi } from "./api/TodoApiService";
 import { useEffect } from "react";
 import { useAuth } from "./security/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export const ListTodosComponent = () => {
 
@@ -14,6 +15,8 @@ export const ListTodosComponent = () => {
 
   const [todos, setTodos] = useState([]);
   const [message, setMessage] = useState(null);
+
+  const navigate = useNavigate();
 
   const refreshTodos = () => {
 
@@ -34,6 +37,10 @@ export const ListTodosComponent = () => {
     .catch(response => console.log(response));
   }
 
+  const updateTodo = (id) => {
+    navigate(`/todo/${id}`);
+  }
+
   useEffect(
     () => refreshTodos()
   , []);
@@ -51,6 +58,7 @@ export const ListTodosComponent = () => {
               <th>Is Done?</th>
               <th>Target Date</th>
               <th>Delete</th>
+              <th>Update</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +73,12 @@ export const ListTodosComponent = () => {
                       className="btn btn-warning" 
                       onClick={ () => deleteTodo(todo.id) }
                     >Delete</button>
+                  </td>
+                  <td>
+                    <button 
+                      className="btn btn-success" 
+                      onClick={ () => updateTodo(todo.id) }
+                    >Update</button>
                   </td>
                 </tr>
               ))
