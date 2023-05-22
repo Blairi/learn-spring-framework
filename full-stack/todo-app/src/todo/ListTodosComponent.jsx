@@ -41,6 +41,10 @@ export const ListTodosComponent = () => {
     navigate(`/todo/${id}`);
   }
 
+  const addNewTodo = () => {
+    navigate(`/todo/-1`);
+  }
+
   useEffect(
     () => refreshTodos()
   , []);
@@ -86,6 +90,7 @@ export const ListTodosComponent = () => {
           </tbody>
         </table>
       </div>
+      <div className="btn btn-success m-3" onClick={addNewTodo}>Add New Todo</div>
     </div>
   )
 }
