@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { retrieveTodoApi, updateTodoApi } from "./api/TodoApiService";
+import { createTodoApi, retrieveTodoApi, updateTodoApi } from "./api/TodoApiService";
 import { useAuth } from "./security/AuthContext";
 import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -21,12 +21,15 @@ export const TodoComponent = () => {
   
 
   const retrieveTodos = () => {
-    retrieveTodoApi(username, id)
-    .then(response => {
-      setDescription(response.data.description);
-      setTargetDate(response.data.targetDate);
-    })
-    .catch(response => console.log(response));
+
+    if(id != -1) {
+      retrieveTodoApi(username, id)
+      .then(response => {
+        setDescription(response.data.description);
+        setTargetDate(response.data.targetDate);
+      })
+      .catch(response => console.log(response));
+    }
   }
 
   const onSubmit = (values) => {
@@ -38,22 +41,33 @@ export const TodoComponent = () => {
       done: false,
     }
 
-    updateTodoApi(username, id, todo)
-    .then(response => {
-      navigate("/todos");
-    })
-    .catch(response => console.log(response));
+    if (id == -1) {
+
+      createTodoApi(username, todo)
+      .then(response => {
+        navigate("/todos");
+      })
+      .catch(response => console.log(response));
+
+    } else {
+      updateTodoApi(username, id, todo)
+      .then(response => {
+        navigate("/todos");
+      })
+      .catch(response => console.log(response));
+    }
+
   }
 
   const validate = (values) => {
     let errors = {};
 
     if(values.description.length < 5){
-      errors.description = 'Enter atleats 5 characters'
+      errors.description = 'Enter atleats 5 characters';
     }
 
-    if(values.targetDate == null){
-      errors.targetDate = 'Enter atleats 5 characters'
+    if(values.targetDate == null || values.targetDate == ""){
+      errors.targetDate = 'Enter a valida date';
     }
 
     return errors;
