@@ -20,8 +20,8 @@ export const LoginComponent = () => {
     setPassword(e.target.value)
   }
 
-  const handleSubmit = () => {
-    if (authContext.login(username, password)) {
+  const handleSubmit = async () => {
+    if (await authContext.login(username, password)) {
       navigate(`/welcome/${username}`);
     }
     else{

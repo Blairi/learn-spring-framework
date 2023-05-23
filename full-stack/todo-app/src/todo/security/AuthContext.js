@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(null);
 
   // const login = (username, password) => {
   //   if (username === 'in28minutes' && password === '') {
@@ -23,34 +24,40 @@ export const AuthProvider = ({ children }) => {
   //   }
   // }
 
-  const login = (username, password) => {
+  const login = async (username, password) => {
 
     const baToken = 'Basic ' + window.btoa(username + ':' + password);
 
-    executeBasicAuthenticationService(baToken)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
+    try {
 
-    setAuthenticated(false);
+      const response = await executeBasicAuthenticationService(baToken)
+  
+      if (response.status==200) {
+        setAuthenticated(true);
+        setUsername(username);
+        setToken(baToken);
+        return true;
+      }
+      else{
+        logout();
+        return false;
+      }
 
-    // if (username === 'in28minutes' && password === '') {
-    //   setAuthenticated(true);
-    //   setUsername(username);
-    //   return true;
-    // }
-    // else{
-    //   setAuthenticated(false);
-    //   setUsername(null);
-    //   return false;
-    // }
+    } catch (error) {
+        logout();
+        return false;
+    }
+    
   }
 
   const logout = () => {
     setAuthenticated(false);
+    setToken(null);
+    setUsername(null);
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, username }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, username, token }}>
       { children }
     </AuthContext.Provider>
   );
